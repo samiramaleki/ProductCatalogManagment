@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  productcatalogmanagment.presentation:
+    image: pcpresentationserver
+    container_name: PCApi
+    build:
+      context: .
+      dockerfile: ProductCatalogManagment.Presentation/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:80;https://+:443
+    ports:
+      - "5005:443"
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: maleki-sql
+    user: root
+    environment:
+      SA_PASSWORD: "D9OUXpYkiWeOAZ9m21HU"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - D:\ProductCatalogManagment\Docker\mssql2019:/var/opt/mssql/data
+    ports:
+      - "5003:1433"
