@@ -9,6 +9,8 @@ namespace ProductCatalogManagment.Infrastructure.Configuration
         {
             builder.ToTable("Products");
             builder.HasKey(prop => prop.Id);
+
+            builder.HasOne(c => c.Parent).WithMany(c => c.Children).HasForeignKey(c => c.ParentId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

@@ -2,7 +2,7 @@
 using ProductCatalogManagment.Application.Interfaces;
 using ProductCatalogManagment.Domain;
 
-namespace ProductCatalogManagment.Application.CQRS.Create
+namespace ProductCatalogManagment.Application.CQRS.Products.Create
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, bool>
     {
@@ -15,8 +15,12 @@ namespace ProductCatalogManagment.Application.CQRS.Create
 
         public async Task<bool> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var product = Product.Create(request.ProductInputDto.Name, request.ProductInputDto.Price);
-            await _repository.Create(product);
+            var parent = await _repository.GetByParentIdAsync(request.ProductInputDto.ParentId.Value)?? throw new Exception("شناسه ParentId موردنظر وجود ندارد");
+
+            var category = Product.Create(request.ProductInputDto.Name, parent, request.ProductInputDto.Price, request.ProductInputDto.Quantity);
+            category.SetLevel(parent?.Level);
+
+            await _repository.Create(category);
             await _repository.SaveChangesAsync(cancellationToken);
 
             return true;

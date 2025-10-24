@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ProductCatalogManagment.Application.CQRS.Create;
+using ProductCatalogManagment.Application.CQRS.Products.Create;
 using ProductCatalogManagment.Application.Interfaces;
 using ProductCatalogManagment.Persistence.EF;
 using ProductCatalogManagment.Persistence.Repositories;
@@ -16,9 +16,11 @@ builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(CreateProductCommandHandler).Assembly);
 });
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
 builder.Services.AddSingleton<AuditInterceptor>();
 builder.Services.AddDbContext<ProductDbContext>(
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

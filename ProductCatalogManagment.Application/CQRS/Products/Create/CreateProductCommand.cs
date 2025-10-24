@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using ProductCatalogManagment.Domain.Dtos;
+using ProductCatalogManagment.Domain.Dtos.Products;
 
-namespace ProductCatalogManagment.Application.CQRS.Create;
+namespace ProductCatalogManagment.Application.CQRS.Products.Create;
 
-public class CreateProductCommand:IRequest<bool>
+public class CreateProductCommand : IRequest<bool>
 {
     public ProductInputDto ProductInputDto { get; private set; }
 

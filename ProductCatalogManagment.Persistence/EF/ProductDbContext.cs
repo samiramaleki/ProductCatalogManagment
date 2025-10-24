@@ -30,7 +30,7 @@ public class ProductDbContext: DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer("Server=192.168.43.206,5003;Database=Mc2CrudTestD1;uid=sa;pwd=D9OUXpYkiWeOAZ9m21HU;Encrypt=True;TrustServerCertificate=True");
+        optionsBuilder.UseSqlServer("Server=192.168.43.206,5003;Database=ProductCatalog;uid=sa;pwd=D9OUXpYkiWeOAZ9m21HU;Encrypt=True;TrustServerCertificate=True");
         optionsBuilder.AddInterceptors(_auditInterceptor);
     }
 }

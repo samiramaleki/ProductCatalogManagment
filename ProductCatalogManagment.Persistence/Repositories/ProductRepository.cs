@@ -1,5 +1,7 @@
-﻿using ProductCatalogManagment.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ProductCatalogManagment.Application.Interfaces;
 using ProductCatalogManagment.Domain;
+using ProductCatalogManagment.Domain.Dtos.Products;
 using ProductCatalogManagment.Persistence.EF;
 
 namespace ProductCatalogManagment.Persistence.Repositories
@@ -19,22 +21,65 @@ namespace ProductCatalogManagment.Persistence.Repositories
             return model.Id;
         }
 
-        public Task Delete(Product model)
+        public async Task Delete(Product model)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(_context.Products.Remove(model));
         }
 
-        public Task<Product> GetById(int id)
+        public async Task<Product?> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Products.Include(x=>x.Children).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<int> Update(Product model)
+        public async Task<int> Update(Product model)
         {
-            throw new NotImplementedException();
+            await Task.FromResult(_context.Products.Update(model));
+            return model.Id;
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = default)
            => await _context.SaveChangesAsync(cancellationToken);
+
+        public async Task<Product?> GetByParentIdAsync(int parentId)
+        {
+            return await _context.Products.FirstOrDefaultAsync(x => x.Id == parentId);
+        }
+
+        public async Task<List<ProductListOutputDto>> GetProductListsAsync(CancellationToken cancellationToken = default)
+        {
+            // 1. گرفتن تمام محصولات بدون Include
+            var productsFlat = await _context.Products
+                .AsNoTracking()
+                .ToListAsync(cancellationToken);
+
+            var dict = productsFlat.ToDictionary(p => p.Id);
+
+            foreach (var p in productsFlat)
+            {
+                if (p.ParentId.HasValue && dict.ContainsKey(p.ParentId.Value))
+                {
+                    var parent = dict[p.ParentId.Value];
+                    parent.Children ??= new List<Product>();
+                    parent.Children.Add(p);
+                }
+            }
+
+            var roots = productsFlat.Where(p => p.Level == 1).ToList();
+
+            return roots.Select(MapToDto).ToList();
+        }
+
+        private ProductListOutputDto MapToDto(Product product)
+        {
+            return new ProductListOutputDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Level = product.Level,
+                Price = product.Price,
+                Quantity = product.Quantity,
+                Children = product.Children.Select(MapToDto).ToList()
+            };
+        }
     }
 }
