@@ -15,7 +15,7 @@ namespace ProductCatalogManagment.Application.CQRS.Products.Create
 
         public async Task<bool> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            var parent = await _repository.GetByParentIdAsync(request.ProductInputDto.ParentId.Value)?? throw new Exception("شناسه ParentId موردنظر وجود ندارد");
+            var parent = await _repository.GetByParentIdAsync(request.ProductInputDto.ParentId.Value);
 
             var maxLevel = await _repository.GetMaxLevelByParentId(request.ProductInputDto.ParentId.Value, cancellationToken);
 

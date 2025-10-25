@@ -34,6 +34,8 @@
 
         public void Update(string name, Product? parent, decimal? price, int? quantity)
         {
+            if (string.IsNullOrEmpty(name))
+                throw new Exception("نام نمیتواند خالی باشد");
             Name = name;
             Parent = parent;
             Price = price;

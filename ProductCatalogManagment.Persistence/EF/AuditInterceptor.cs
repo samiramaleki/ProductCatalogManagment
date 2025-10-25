@@ -38,21 +38,9 @@ namespace ProductCatalogManagment.Persistence.EF
                         ModifiedBy = "SystemUser",
                         ModifiedAt = DateTime.Now,
                         NewValues = JsonSerializer.Serialize(entry.CurrentValues.ToObject()),
+                        OldValues = JsonSerializer.Serialize(entry.OriginalValues.ToObject())
                     });
                 }
-
-                //if (entry.State == EntityState.Added)
-                //{
-                //    Console.WriteLine($"[Audit] INSERT: {entry.Entity.GetType().Name}");
-                //}
-                //else if (entry.State == EntityState.Modified)
-                //{
-                //    Console.WriteLine($"[Audit] UPDATE: {entry.Entity.GetType().Name}");
-                //}
-                //else if (entry.State == EntityState.Deleted)
-                //{
-                //    Console.WriteLine($"[Audit] DELETE: {entry.Entity.GetType().Name}");
-                //}
             }
             if (auditLogs.Any())
             {
