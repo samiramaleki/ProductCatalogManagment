@@ -22,7 +22,7 @@
         private Product(string name, Product? parent, decimal? price, int? quantity)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("نام نمیتواند خالی باشد");
+                throw new Exception("نام نمیتواند خالی باشد");
             Name = name;
             Price = price;
             Quantity = quantity;

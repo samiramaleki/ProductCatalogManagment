@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogManagment.Inf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogManagment.Domain", "ProductCatalogManagment.Domain\ProductCatalogManagment.Domain.csproj", "{403108F5-A14A-4F37-9037-470B7E43949C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalogManagment.Presentation", "ProductCatalogManagment.Presentation\ProductCatalogManagment.Presentation.csproj", "{D8E2AC5C-36BB-40F1-B464-D0B21942546D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogManagment.Presentation", "ProductCatalogManagment.Presentation\ProductCatalogManagment.Presentation.csproj", "{D8E2AC5C-36BB-40F1-B464-D0B21942546D}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CD16AC01-A5BF-4391-A844-E11C24A6CD28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalogManagment.Domain.UnitTest", "ProductCatalogManagment.Domain.UnitTest\ProductCatalogManagment.Domain.UnitTest.csproj", "{0C0830C9-D1A7-4F9D-8B2F-9F2701D6E60D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{CD16AC01-A5BF-4391-A844-E11C24A6CD28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD16AC01-A5BF-4391-A844-E11C24A6CD28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD16AC01-A5BF-4391-A844-E11C24A6CD28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C0830C9-D1A7-4F9D-8B2F-9F2701D6E60D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C0830C9-D1A7-4F9D-8B2F-9F2701D6E60D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C0830C9-D1A7-4F9D-8B2F-9F2701D6E60D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C0830C9-D1A7-4F9D-8B2F-9F2701D6E60D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

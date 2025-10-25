@@ -17,8 +17,10 @@ namespace ProductCatalogManagment.Application.CQRS.Products.Create
         {
             var parent = await _repository.GetByParentIdAsync(request.ProductInputDto.ParentId.Value)?? throw new Exception("شناسه ParentId موردنظر وجود ندارد");
 
+            var maxLevel = await _repository.GetMaxLevelByParentId(request.ProductInputDto.ParentId.Value, cancellationToken);
+
             var category = Product.Create(request.ProductInputDto.Name, parent, request.ProductInputDto.Price, request.ProductInputDto.Quantity);
-            category.SetLevel(parent?.Level);
+            category.SetLevel(maxLevel);
 
             await _repository.Create(category);
             await _repository.SaveChangesAsync(cancellationToken);
